@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit post
+{% endblock %}
+
+{% block content_title %}
+    Edit Post
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-6">
+        <form action="{{ url_for('posts.edit_post', slug=post.slug) }}" method="POST" enctype="multipart/form-data">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label(class='control-label') }}
+                    {{ field(class='form-control') }}
+                </div>
+            {% endfor %}
+
+            <!-- Отображение текущего изображения, если оно существует -->
+            {% if post.image %}
+                <div class="form-group">
+                    <label>Current Image:</label>
+                    <br>
+                    <img src="{{ url_for('static', filename=post.image) }}" alt="Post Image">
+                </div>
+            {% endif %}
+
+            <!-- Поле для загрузки нового изображения -->
+            <div class="form-group">
+                <label for="file">Upload new image</label>
+                <input type="file" name="file" accept="image/*" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-success">Update Post</button>
+        </form>
+    </div>
+{% endblock %}

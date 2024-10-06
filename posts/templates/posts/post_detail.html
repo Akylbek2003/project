@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content_title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="tags">
+        {% if post.image %}
+        <img src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}" width="300" height="auto">
+            <!-- <img src="{{ url_for('static', filename=post.image) }}" alt="Post Image"> -->
+        {% endif %}
+        {% for tag in tags %}
+            <a href=" {{ url_for('posts.tag_detail', slug=tag.slug) }} "><span class="label label-primary">{{ tag.name }}</span></a>
+        {% endfor %}
+    </div>
+    {{ post.body }}
+{% endblock %}
